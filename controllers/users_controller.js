@@ -1,3 +1,5 @@
+const User = require("../models/user");
+
 module.exports.profile = function(req,res){
     res.render('user_profile.ejs');
 }
@@ -13,9 +15,28 @@ module.exports.signIn = function(req,res){
 
 // get signUp Data
 module.exports.create = function(req,res){
-    // todo later
-}
+    console.log("idhar dekh",req.body)
+    if (req.body.password !== req.body.confirm_password) {
+        return res.redirect('back');
+    }
 
+    User.findOne({email: req.body.email})
+    .then((user)=>{
+        if (!user) {
+            User.create(req.body)
+            .then(user=>{
+                return res.redirect('/users/sign-in');
+            })
+            .catch((err)=>{
+                console.error('Error in creating user during sign-up',err)
+            });
+        }else{
+            return res.redirect('back');
+        }
+    })
+    .catch((err)=>console.error('error in finding user in signing up',err));
+
+}
 
 // login and create a session for the user
 module.exports.createSession = function(req,res){
