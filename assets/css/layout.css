@@ -1,6 +1,9 @@
+*{
+    font-family: sans-serif;
+}
 body{
     margin: 0;
-    text-align: center;
+    /* text-align: center; */
 }
 
 /* footer{
