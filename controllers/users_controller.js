@@ -1,15 +1,31 @@
 const User = require("../models/user");
 
 module.exports.profile = function(req,res){
-    res.render('user_profile.ejs');
+    res.render('user_profile.ejs',{
+        title:"Codeial | Profile"
+    });
 }
 
 module.exports.signUp = function(req,res){
-    res.render("user_sign_up.ejs")
+    if(req.isAuthenticated()){
+        res.redirect('/users/profile')
+    }else{
+        return res.render("user_sign_up.ejs",{
+            title:"Codeial | Signup"
+        })
+    }
+    
 }
 
 module.exports.signIn = function(req,res){
-    res.render("user_sign_in.ejs")
+    if(req.isAuthenticated()){
+        res.redirect('/users/profile')
+    }else{
+        return res.render("user_sign_in",{
+            title:"Codeial | Sign-in"
+        }
+        );
+    }
 }
 
 
@@ -40,6 +56,7 @@ module.exports.create = function(req,res){
 
 // login and create a session for the user
 module.exports.createSession = function(req,res){
-
+    console.log('session created');
+    return res.redirect('/');
 }
 
