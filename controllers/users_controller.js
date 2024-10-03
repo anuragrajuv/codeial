@@ -57,6 +57,13 @@ module.exports.create = function(req,res){
 // login and create a session for the user
 module.exports.createSession = function(req,res){
     console.log('session created');
-    return res.redirect('/');
+    return res.redirect('/users/profile');
 }
 
+
+
+module.exports.destroySession = function(req,res){
+    req.logout(User);
+
+    return res.redirect('/');
+}
