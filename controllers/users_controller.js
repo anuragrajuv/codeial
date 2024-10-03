@@ -8,24 +8,24 @@ module.exports.profile = function(req,res){
 
 module.exports.signUp = function(req,res){
     if(req.isAuthenticated()){
-        res.redirect('/users/profile')
-    }else{
-        return res.render("user_sign_up.ejs",{
-            title:"Codeial | Signup"
-        })
+        return res.redirect('/users/profile')
     }
+    return res.render("user_sign_up.ejs",{
+        title:"Codeial | Signup"
+    });
+    
     
 }
 
 module.exports.signIn = function(req,res){
     if(req.isAuthenticated()){
-        res.redirect('/users/profile')
-    }else{
-        return res.render("user_sign_in",{
-            title:"Codeial | Sign-in"
-        }
-        );
+        return res.redirect('/users/profile')
     }
+
+    return res.render("user_sign_in",{
+        title:"Codeial | Sign-in"
+    });
+    
 }
 
 

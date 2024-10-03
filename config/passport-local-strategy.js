@@ -33,7 +33,7 @@ passport.use(new LocalStrategy({
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function(user, done){
-    console.log('serialized');
+    // console.log('serialized');
     done(null, user.id);
 });
 
@@ -45,7 +45,7 @@ passport.deserializeUser(function(id, done){
                 console.error('User not found during deserialization');
                 return done(null, false);
             }
-            console.log('deserialized');
+            // console.log('deserialized');
             return done(null, user);
         })
         .catch(err => {
