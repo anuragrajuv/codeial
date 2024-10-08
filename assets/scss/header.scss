@@ -1,0 +1,36 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    height: 8%;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    h2{
+        margin: 10px;
+    }
+    ul{
+        list-style-type:none;
+        display: flex;
+        padding-inline-start: 0px;
+        li{
+            margin: 0 10px 0 10px;
+            a{
+                color: white;
+                &:active{
+                    color:white;
+                }
+                &:visited{
+                    color: white;
+                    font-size: 1.2rem;
+                }
+                &:hover{
+                    text-decoration: underline;
+                }                
+            }
+        }
+    }
+}
