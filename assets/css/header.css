@@ -6,8 +6,8 @@ header {
   height: 8%;
   align-items: center;
   width: 100%;
-  height: auto;
-  position: sticky;
+  height: 8vh;
+  position: relative;
   top: 0; }
   header h2 {
     margin: 10px; }
