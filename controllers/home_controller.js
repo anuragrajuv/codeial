@@ -1,4 +1,4 @@
-const Post = require("../models/posts");
+const Post = require("../models/post");
 const { posts } = require("./posts_controller");
 
 module.exports.home = function(req,res){

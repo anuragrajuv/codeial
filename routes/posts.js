@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const postsController = require("../controllers/posts_controller");
+const Passport = require("passport");
 
 router.get('/',postsController.posts);
-router.post("/createPost",postsController.createPost);
+router.post("/createPost",Passport.checkAuthentication,postsController.createPost);
 
 
 // console.log("posts controller loaded");
