@@ -1,9 +1,30 @@
+const Post = require("../models/posts");
+const { posts } = require("./posts_controller");
+
 module.exports.home = function(req,res){
     // console.log(req.cookies);
     // res.cookie('user_id',25)
-    
-    return res.render('home.ejs',{
-        title: "Codeial | Home"
+    // Post.find({})
+    // .then((posts)=>{
+    //     return res.render('home',{
+    //         title:"Codeial|Home",
+    //         posts:posts
+    //     });
+    // })
+    // .catch((err)=>{
+    //     return console.error(err);
+    // })
+
+    // Populate the user of each post
+    Post.find({}).populate('user').exec()
+    .then((posts)=>{
+        return res.render('home',{
+            title:"Codeial|Home",
+            posts:posts
+        });
+    })
+    .catch((err)=>{
+        return console.error(err);
     })
 }
 

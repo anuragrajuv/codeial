@@ -30,7 +30,7 @@ module.exports.signIn = function(req,res){
 
 
 // get signUp Data
-module.exports.create = function(req,res){
+module.exports.createUser = function(req,res){
     console.log("idhar dekh",req.body)
     if (req.body.password !== req.body.confirm_password) {
         return res.redirect('back');
