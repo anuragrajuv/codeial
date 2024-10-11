@@ -6,7 +6,7 @@ module.exports.posts = function(req,res){
 } 
 
 
-module.exports.createPost = function(req,res){
+module.exports.create = function(req,res){
     console.log("Content:",req.body.content);
     if(!req.body.content){
         return res.redirect('/')
