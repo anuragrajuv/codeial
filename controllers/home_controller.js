@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const User = require("../models/user");
 const { posts } = require("./posts_controller");
 
 module.exports.home = function(req,res){
@@ -16,12 +17,28 @@ module.exports.home = function(req,res){
     // })
 
     // Populate the user of each post
-    Post.find({}).populate('user').exec()
+    Post.find({})
+    .populate('user')
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+    })
+    .exec()
     .then((posts)=>{
-        return res.render('home',{
-            title:"Codeial|Home",
-            posts:posts
-        });
+        User.find({})
+        .then(users=>{
+            return res.render('home',{
+                title:"Codeial|Home",
+                posts:posts,
+                all_users:users
+            });
+        })
+        .catch(err=>{
+            return console.error(err);            
+        })
+        
     })
     .catch((err)=>{
         return console.error(err);

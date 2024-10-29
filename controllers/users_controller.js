@@ -19,7 +19,7 @@ module.exports.signUp = function(req,res){
 
 module.exports.signIn = function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile')
+        return res.redirect('/')
     }
 
     return res.render("user_sign_in",{
@@ -57,7 +57,7 @@ module.exports.create = function(req,res){
 // login and create a session for the user
 module.exports.createSession = function(req,res){
     console.log('session created');
-    return res.redirect('/users/profile');
+    return res.redirect('/');
 }
 
 
@@ -65,5 +65,5 @@ module.exports.createSession = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout(User);
 
-    return res.redirect('/');
+    return res.redirect('/users/sign-in');
 }
