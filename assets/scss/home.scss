@@ -1,38 +1,47 @@
 body{
     margin: 0;
-    text-align: center;
+    // text-align: center;
     text-transform:capitalize;
     #feed-posts{
         display:flex;
         flex-direction: column;
         justify-content: center;
-        // width: 30vw;        
-        border: 1px solid blue;
         #new-post-form{
             display: flex;
-            justify-content: center;
+            // justify-content: center;
         }
         #posts-list-container{
             display: flex;
             justify-content: center;
             text-align: justify;
             font-weight: bold;
-            border: 2px solid black;
+            border: 2px solid lightgray;
+            border-radius: 5px;
+            a{
+                font-size: 0.8em;
+                width: 100%;
+            }
+            a:hover{
+                text-decoration:underline;
+                color: crimson;
+            }
             ul{
                 .post{
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    border: 2px solid red;
+                    border: 2px solid lightgray;
                     margin: 5px;
                     padding: 5px;
-                    border-radius: 10px;
+                    border-radius: 5px;
+                    
                     .post-comments{
                         display: flex;
                         flex-direction: column;
                         .comment-form{
+                            margin: auto;
+                            text-align: justify;
                             margin-top: 10px;
-                            border: 2px solid black;
                             border-radius: 5px;
                             input{
                                 margin:0;
@@ -40,7 +49,7 @@ body{
                         }
                         .post-comments-list{
                             margin: 2px;
-                        }
+                        }                        
                     }
                 }
             }
@@ -54,3 +63,22 @@ ul{
     list-style: none;
 
 }
+
+
+#home-container{
+    display: flex;
+    height: 100%;
+    #feed-posts{
+        width: 70%;
+        padding: 10px;
+    }
+    #user-friends{
+        width: 30%;
+        padding: 10px;
+        border-left: 1px solid lightgray;
+        min-height: 100%;
+
+    }
+
+}
+

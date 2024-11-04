@@ -1,9 +1,29 @@
 const User = require("../models/user");
 
 module.exports.profile = function(req,res){
-    res.render('user_profile.ejs',{
-        title:"Codeial | Profile"
-    });
+    const userId = req.params.id || req.user._id;
+
+    User.findById(userId)
+    .then(user=>{
+        return res.render('user_profile.ejs',{
+            title:"User Profile",
+            profile_user:user
+        });
+    })
+    .catch(err=>{return console.log(err)});   
+}
+
+module.exports.update = function(req,res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body)
+        .then(user=>{
+            return res.redirect('back');
+        })
+        .catch(err=>console.error(err));
+    }else{
+        return res.status(401).send('Unauthorised');
+
+    }
 }
 
 module.exports.signUp = function(req,res){
@@ -67,3 +87,5 @@ module.exports.destroySession = function(req,res){
 
     return res.redirect('/users/sign-in');
 }
+
+
