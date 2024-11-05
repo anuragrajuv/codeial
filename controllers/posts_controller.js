@@ -20,49 +20,23 @@ module.exports.create = async function(req,res){
 };
 
 
-module.exports.destroy = function(req,res){
-    // try {
-    //     let post= await Post.findById(req.params.id)
-    // // .id means converting the object id into string
+module.exports.destroy = async function(req,res){
+    try {
+        let post = await Post.findById(req.params.id);
+    // .id means converting the object id into string
     
-    //     if(post.user == req.user.id){
-    //         await Comment.deleteMany({post: req.params.id})
-    //         post.deleteOne()
-    //         return res.redirect('back');
-    //     }else{
-    //         return res.redirect('back');
-    //     }
-    // } catch (error) {
-    //     return console.error('Error',error)
-    // }
-    Post.findById(req.params.id)
-    .then((post)=>{
-        // .id means converting the object id into string
         if(post.user == req.user.id){
-            
-            Comment.deleteMany({post: req.params.id})
-            .then(()=>{
-                post.deleteOne()
-                .then(()=>{
-                    return res.redirect('back');
-                })
-                .catch((err)=>{
-                    console.error(err);
-                    return res.redirect('back');
-                });
-            })
-            .catch((err)=>{
-                
-                return res.redirect('back');
-            });
+            await Comment.deleteMany({post: req.params.id});
+            await post.deleteOne();
+            console.log('post deleted');
+            return res.redirect('back');
         }else{
             return res.redirect('back');
         }
-    })
-    .catch(err=>{
-        console.error(err);
-        return res.redirect('back');
-    });
+    } catch (error) {
+         console.error('Error',error)
+            return
+    }
 }
 
 

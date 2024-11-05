@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  text-transform: capitalize; }
+  text-transform: capitalize;
+  background-color: #676748; }
   body #feed-posts {
     display: flex;
     flex-direction: column;
@@ -47,7 +48,8 @@ ul {
 
 #home-container {
   display: flex;
-  height: 100%; }
+  min-height: 100vh;
+  align-items: flex-start; }
   #home-container #feed-posts {
     width: 80%;
     padding: 10px; }

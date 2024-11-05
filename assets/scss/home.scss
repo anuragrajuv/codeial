@@ -2,6 +2,7 @@ body{
     margin: 0;
     // text-align: center;
     text-transform:capitalize;
+    background-color: rgb(103, 103, 72);
     #feed-posts{
         display:flex;
         flex-direction: column;
@@ -67,7 +68,8 @@ ul{
 
 #home-container{
     display: flex;
-    height: 100%;
+    min-height: 100vh;
+    align-items: flex-start;
     #feed-posts{
         width: 80%;
         padding: 10px;

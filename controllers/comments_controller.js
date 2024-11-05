@@ -26,62 +26,63 @@ module.exports.create = async function(req,res){
 
 
 
-module.exports.destroy = function(req,res){
-    Comment.findById(req.params.id)
-    .then((comment)=>{
-        Post.findById(comment.post)
-        .then((post)=>{
-            // .id means converting the object id into string
-            if(comment.user == req.user.id || post.user == req.user.id){
-                let postId = comment.post;
+// module.exports.destroy = function(req,res){
+//     Comment.findById(req.params.id)
+//     .then((comment)=>{
+//         Post.findById(comment.post)
+//         .then((post)=>{
+//             // .id means converting the object id into string
+//             if(comment.user == req.user.id || post.user == req.user.id){
+//                 let postId = comment.post;
 
-                comment.deleteOne()
-                .then(()=>{
-                    Post.findByIdAndRemove(postId,{$pull:{comments: req.params.id}})
-                    .then(()=>{
-                        res.redirect('back');
-                    })
-                    .catch((err)=>{
-                        return res.redirect('back');
-                    });
-                })
-                .catch((err)=>{
-                    return res.redirect('back');
-                });
-            }else{
-                return res.redirect('back');
-            }
-        })
-        .catch(err=>{
-            console.log(err);
-            return res.redirect('back');
-        }); 
-    })
-    .catch(err=>{
-        console.error(err);
-        return res.redirect('back');
-    })
-};
+//                 comment.deleteOne()
+//                 .then(()=>{
+//                     Post.findByIdAndRemove(postId,{$pull:{comments: req.params.id}})
+//                     .then(()=>{
+//                         res.redirect('back');
+//                     })
+//                     .catch((err)=>{
+//                         return res.redirect('back');
+//                     });
+//                 })
+//                 .catch((err)=>{
+//                     return res.redirect('back');
+//                 });
+//             }else{
+//                 return res.redirect('back');
+//             }
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//             return res.redirect('back');
+//         }); 
+//     })
+//     .catch(err=>{
+//         console.error(err);
+//         return res.redirect('back');
+//     })
+// };
 
 
 // Async Await destroy comment 
-// module.exports.destroy = async function(req,res){
-//     try {
-//         let comment = await Comment.findById(req.params.id);
-//         let post = await Post.findById(comment.post);
+module.exports.destroy = async function(req,res){
+    try {
+        let comment = await Comment.findById(req.params.id);
+        let post = await Post.findById(comment.post);
 
-//         if(comment.user == req.user.id || post.user == req.user.id){
-//             let postId = comment.post;
+        if(comment.user == req.user.id || post.user == req.user.id){
+            let postId = comment.post;
             
-//             comment.deleteOne();
+            await comment.deleteOne();
             
-//             Post.findByIdAndRemove(postId,{$pull:{comments: req.params.id}})
+            Post.findByIdAndRemove(postId,{$pull:{comments: req.params.id}})
 
-//             return res.redirect('back');
-//         }else{
-//             return res.redirect('back');
-//         }
-//     } catch (err) {
-//         return console.error('Error',err)
-//     }
-// }
+            return res.redirect('back');
+        }else{
+            return res.redirect('back');
+        }
+    } catch (err) {
+        console.error('Error',err);
+        return res.redirect('back');
+    }
+}
