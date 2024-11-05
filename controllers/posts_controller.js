@@ -7,23 +7,34 @@ module.exports.posts = function(req,res){
 } 
 
 
-module.exports.create = function(req,res){
-    console.log("Content:",req.body.content);
-    Post.create({
-        content:req.body.content,
-        user:req.user._id
-    })
-    .then((post)=>{
-        return res.redirect("back");
-    })
-    .catch((err)=>{
+module.exports.create = async function(req,res){
+    try {
+        await Post.create({
+            content:req.body.content,
+            user:req.user._id
+        });  
+        return res.redirect("back");      
+    } catch (error) {
         return console.error("Error Creating Post",err);
-        
-    })
+    }
 };
 
 
 module.exports.destroy = function(req,res){
+    // try {
+    //     let post= await Post.findById(req.params.id)
+    // // .id means converting the object id into string
+    
+    //     if(post.user == req.user.id){
+    //         await Comment.deleteMany({post: req.params.id})
+    //         post.deleteOne()
+    //         return res.redirect('back');
+    //     }else{
+    //         return res.redirect('back');
+    //     }
+    // } catch (error) {
+    //     return console.error('Error',error)
+    // }
     Post.findById(req.params.id)
     .then((post)=>{
         // .id means converting the object id into string
@@ -53,3 +64,5 @@ module.exports.destroy = function(req,res){
         return res.redirect('back');
     });
 }
+
+

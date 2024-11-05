@@ -4,7 +4,7 @@
         <small>
             <% if(locals.user){ %>
                 <% if(locals.user.id == comment.user.id || locals.user.id == post.user.id){ %>
-                    <a href="/comments/destroy/<%= comment.id %>">X</a>
+                    <a href="/comments/destroy/<%= comment.id %>"><i class="fa-solid fa-trash"></i></a>
                 <% } %>
             <% } %>
 

@@ -15,7 +15,6 @@ body {
       border: 2px solid lightgray;
       border-radius: 5px; }
       body #feed-posts #posts-list-container a {
-        text-align: right;
         font-size: 0.8em;
         width: 100%; }
       body #feed-posts #posts-list-container a:hover {
@@ -50,10 +49,10 @@ ul {
   display: flex;
   height: 100%; }
   #home-container #feed-posts {
-    width: 70%;
+    width: 80%;
     padding: 10px; }
   #home-container #user-friends {
-    width: 30%;
+    width: 20%;
     padding: 10px;
     border-left: 1px solid lightgray;
     min-height: 100%; }
