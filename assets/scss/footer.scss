@@ -1,0 +1,31 @@
+footer{
+    display: flex;
+    justify-content: start;
+    background-color: black;
+    color: white;
+    height: 10%;
+    align-items:first baseline;
+    width: 100%;
+    position:sticky;
+    bottom: 0;
+    ul{
+        list-style: none;
+        padding-inline-start: 0px;
+        li{
+            margin: 0 10px 0 10px;
+            a{
+                color: white;
+                &:active{
+                    color:white;
+                }
+                &:visited{
+                    color: white;
+                    font-size: 1.2rem;
+                }
+                &:hover{
+                    text-decoration: underline;
+                }                
+            }
+        }
+    }
+}
