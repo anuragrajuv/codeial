@@ -7,15 +7,34 @@ module.exports.create = async function(req,res){
     try {
         let post = await Post.findById(req.body.post);
 
+
         if(post){
             let comment = await Comment.create({
                 content:req.body.content,
                 post:req.body.post,
                 user:req.user._id
-            });
+            })
 
-            post.comments.push(comment);
+            post.comments = await Comment.find({post})
+            .sort('-createdAt')
+            
+
+            comment = await Comment.findById(comment._id)
+                .populate('user', 'name') // Populate user fields
+                .populate('post', 'title');    // Populate post fields
+            
+            // post.comments.push(comment);
             post.save();
+
+            if (req.xhr) {
+                return res.status(200).json({
+                    data: {
+                        comment: comment,
+                    },
+                    message: "Comment added successfully!"
+                });
+            }
+
             req.flash("success","Comment Added!");
             return res.redirect('/');
         };
@@ -39,6 +58,15 @@ module.exports.destroy = async function(req,res){
             await comment.deleteOne();
             
             Post.findByIdAndUpdate(postId,{$pull:{comments: req.params.id}})
+
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
             
             req.flash("success","Comment Deleted!");
             
