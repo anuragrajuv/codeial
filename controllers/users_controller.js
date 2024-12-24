@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const fs = require("fs");
+const path = require("path");
 
 module.exports.profile = function(req,res){
     const userId = req.params.id || req.user._id;
@@ -14,16 +16,6 @@ module.exports.profile = function(req,res){
 }
 
 module.exports.update = async function(req,res){
-    // if(req.user.id == req.params.id){
-    //     User.findByIdAndUpdate(req.params.id,req.body)
-    //     .then(user=>{
-    //         return res.redirect('back');
-    //     })
-    //     .catch(err=>console.error(err));
-    // }else{
-    //     return res.status(401).send('Unauthorised');
-
-    // }
 
     if(req.user.id == req.params.id){
         try {
@@ -33,6 +25,9 @@ module.exports.update = async function(req,res){
                 user.name = req.body.name;
                 user.email = req.body.email;
                 if(req.file){
+                    if(user.avatar){
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                    }
                     user.avatar = User.avatarPath + "/" + req.file.filename;
                 }           
                 user.save();
