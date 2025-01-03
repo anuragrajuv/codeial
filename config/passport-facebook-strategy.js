@@ -8,7 +8,8 @@ const FACEBOOK_APP_SECRET = "cfeaba11da497c713f526d71390bf1d4";
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:8000/users/auth/facebook/callback"
+    callbackURL: "http://localhost:8000/users/auth/facebook/callback",
+    profileFields: ['name', 'email']
   },
   async function(accessToken, refreshToken, profile, cb) {
     // Find a user by email
@@ -16,7 +17,7 @@ passport.use(new FacebookStrategy({
         
     if (user) {
         // If found, set the user as req.user
-        return done(null, user);
+        return cb(null, user);
     } else {
         // If not found, create a new user
         user = await User.create({
@@ -24,7 +25,7 @@ passport.use(new FacebookStrategy({
             email: profile.emails[0].value,
             password: crypto.randomBytes(20).toString('hex')
         });
-        return done(null, user);
+        return cb(null, user);
     }
   }
 ));
