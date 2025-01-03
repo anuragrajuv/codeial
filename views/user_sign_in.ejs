@@ -1,8 +1,21 @@
 <link rel="stylesheet" href="/css/signIn.css">
 
+
+
+
 <form action="/users/create-session" method="POST">
     <h1>Sign In</h1>
     <input type="email" name="email" id="email" placeholder="Email">
     <input type="password" name="password" placeholder="Password">
     <input type="submit" value="Sign In">
+    <p>
+        <a href="/users/auth/google">
+            Google Sign In/Sign Up
+        </a>
+    </p>
+    <p>
+        <a href="/users/auth/facebook">
+            Facebook Sign In/Sign Up
+        </a>
+    </p>
 </form>
