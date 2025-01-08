@@ -1,13 +1,15 @@
-<li class="post">
-    <% if(locals.user && locals.user.id == post.user.id){ %>
-        <small style="display: flex;justify-content: space-between;">
-            <b><%= post.user.name %>:</b><b><a href="posts/destroy/<%= post.id%>"><i class="fa-solid fa-trash"></i></a></b>
-        </small>
-    <% } %>
+<li class="post" id="post-<%=post._id%>">
+    <small style="display: flex;justify-content: space-between;">
+        <b><%= post.user.name %>:</b>
+        <% if(locals.user && locals.user.id == post.user.id){ %>
+            <b><a class="delete-post-button" href="/posts/destroy/<%= post.id %>" onclick="deletePost"><i class="fa-solid fa-trash"></i></a></b>
+        <% } %>
+    </small>
+    
     <%= post.content %>
     <div class="post-comments">
         <%if(locals.user){%>
-            <form action="/comments/create" method="post" class="comment-form">
+            <form action="/comments/create" method="post" class="comment-form" id="comment-form-<%= post.id%>">
                 <input type="text" name="content" placeholder="Type here to add comment" required>
                 <input type="hidden" name="post" value="<%= post._id%>">
                 <input type="submit" value="Add Comment">

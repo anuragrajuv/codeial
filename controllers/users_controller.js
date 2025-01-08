@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const fs = require("fs");
+const path = require("path");
 
 module.exports.profile = function(req,res){
     const userId = req.params.id || req.user._id;
@@ -13,17 +15,35 @@ module.exports.profile = function(req,res){
     .catch(err=>{return console.log(err)});   
 }
 
-module.exports.update = function(req,res){
-    if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id,req.body)
-        .then(user=>{
-            return res.redirect('back');
-        })
-        .catch(err=>console.error(err));
-    }else{
-        return res.status(401).send('Unauthorised');
+module.exports.update = async function(req,res){
 
-    }
+    if(req.user.id == req.params.id){
+        try {
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req,res,function(err){
+                if(err){console.log('******Multer Error',err);}
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if(req.file){
+                    if(user.avatar){
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                    }
+                    user.avatar = User.avatarPath + "/" + req.file.filename;
+                }           
+                user.save();
+                return res.redirect('back');     
+            })
+
+
+        } catch (error) {
+            req.flash("error",error);
+            return res.redirect('back');
+        }
+    }else{
+            req.flash('error',"Unathorised!");
+            return res.status(401).send('Unauthorised');
+        }
+
 }
 
 module.exports.signUp = function(req,res){
@@ -51,7 +71,7 @@ module.exports.signIn = function(req,res){
 
 // get signUp Data
 module.exports.create = function(req,res){
-    console.log("idhar dekh",req.body)
+    // console.log("idhar dekh",req.body)
     if (req.body.password !== req.body.confirm_password) {
         return res.redirect('back');
     }
@@ -76,6 +96,7 @@ module.exports.create = function(req,res){
 
 // login and create a session for the user
 module.exports.createSession = function(req,res){
+    req.flash('success','Logged in Successfully');
     console.log('session created');
     return res.redirect('/');
 }
@@ -84,6 +105,7 @@ module.exports.createSession = function(req,res){
 
 module.exports.destroySession = function(req,res){
     req.logout(User);
+    req.flash('success','Logged out Successfully');
 
     return res.redirect('/users/sign-in');
 }

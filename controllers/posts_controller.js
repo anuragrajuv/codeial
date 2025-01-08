@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Comment = require('../models/comment');
+const User = require("../models/user");
 
 
 module.exports.posts = function(req,res){
@@ -9,33 +10,61 @@ module.exports.posts = function(req,res){
 
 module.exports.create = async function(req,res){
     try {
-        await Post.create({
+        let post = await Post.create({
             content:req.body.content,
             user:req.user._id
         });  
+        
+        let user = await User.findById(post.user)
+
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post:post,
+                    user:user.name
+                },
+                message:"Post Created!"
+            })
+        }
+        req.flash("success","New Post Shared!");
         return res.redirect("back");      
     } catch (error) {
-        return console.error("Error Creating Post",err);
+        req.flash("error",error);
+        return console.error("Error Creating Post",error);
     }
 };
 
 
+
 module.exports.destroy = async function(req,res){
     try {
+        // console.log("Deletion Started");
         let post = await Post.findById(req.params.id);
     // .id means converting the object id into string
     
         if(post.user == req.user.id){
             await Comment.deleteMany({post: req.params.id});
             await post.deleteOne();
-            console.log('post deleted');
+ 
+            if(req.xhr){
+                req.flash("success","Post and Related Comments Deleted!")
+                return res.status(200).json({
+                    data:{
+                        post_id:req.params.id
+                    },
+                    message:"Post Deleted"
+                })
+            }
+
+            req.flash("success","Post and Related Comments Deleted!");
             return res.redirect('back');
         }else{
+            req.flash("error",'You Cannot delete this post');
             return res.redirect('back');
         }
     } catch (error) {
-         console.error('Error',error)
-            return
+        req.flash("error",error);
+        return res.redirect('back');
     }
 }
 
