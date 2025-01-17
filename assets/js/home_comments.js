@@ -13,6 +13,8 @@ let createComment = function(postId){
                 let newComment = newCommentDom(data.data.comment);
                 $(`#post-comments-${data.data.comment.post._id}`).prepend(newComment);
                 deleteComment($(' .delete-comment-button', newComment));
+                new ToggleLike($(' .toggle-like-button',newComment));
+
 
                 new Noty({
                     theme: 'relax',
@@ -37,6 +39,9 @@ let newCommentDom = function(comment) {
             <small>
                 <b>${comment.user.name}:</b>${comment.content}
                 <small>
+                    <small>
+                        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">0 Likes</a>
+                    </small>
                     <a href="/comments/destroy/${comment._id}" class="delete-comment-button">
                         <i class="fa-solid fa-trash"></i>
                     </a>

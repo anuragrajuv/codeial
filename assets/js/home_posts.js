@@ -17,6 +17,8 @@ let createPost = function(){
                 
                 createComment(data.data.post._id);
 
+                new ToggleLike($(' .toggle-like-button',newPost));
+                console.log("Post published!",data);
                 new Noty({
                     theme: 'relax',
                     text: "Post published!",
@@ -42,6 +44,10 @@ let newPostDom = function(data){
                 </small>
                 
                 ${ data.post.content }
+
+                <small>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${data.post._id}&type=Post">0 Likes</a>
+                </small>
                 <div class="post-comments">
                     <form action="/comments/create" method="post" class="comment-form">
                         <input type="text" name="content" placeholder="Type here to add comment" required>
