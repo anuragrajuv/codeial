@@ -26,6 +26,7 @@ app.use(sassMiddleware({
     outputStyle:'extended',
     prefix:'/css'
 }));
+app.use(express.json()); // Enables JSON parsing
 
 app.use(express.urlencoded());
 

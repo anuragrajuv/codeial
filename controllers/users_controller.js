@@ -1,19 +1,49 @@
 const User = require("../models/user");
 const fs = require("fs");
 const path = require("path");
+const Friendship = require('../models/friendship');
 
-module.exports.profile = function(req,res){
-    const userId = req.params.id || req.user._id;
+module.exports.profile = async function (req, res) {
+    try {
+        const userId = req.params.id || req.user._id;
+        const loggedInUserId = req.user._id; // Currently logged-in user
 
-    User.findById(userId)
-    .then(user=>{
-        return res.render('user_profile.ejs',{
-            title:"User Profile",
-            profile_user:user
+        // Find the user whose profile is being visited
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        // Check if there's an existing friendship between logged-in user and profile user
+        const friendship = await Friendship.findOne({
+            userId: loggedInUserId,
+            friendId: userId
         });
-    })
-    .catch(err=>{return console.log(err)});   
-}
+
+        return res.render('user_profile.ejs', {
+            title: user.name,
+            profile_user: user,
+            isFriend: !!friendship // true if friends, false otherwise
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send("Internal Server Error");
+    }
+};
+
+// module.exports.profile = function(req,res){
+//     const userId = req.params.id || req.user._id;
+
+//     User.findById(userId)
+//     .then(user=>{
+//         return res.render('user_profile.ejs',{
+//             title:user.name,
+//             profile_user:user
+//         });
+//     })
+//     .catch(err=>{return console.log(err)});   
+// }
 
 module.exports.update = async function(req,res){
 

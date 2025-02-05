@@ -12,4 +12,15 @@
         <!-- else show only profile info -->
         <p><%= profile_user.name%></p>
         <p><%= profile_user.email%></p>
+        <button method= "post" id="toggleFriendButton" data-friend-id="<%=profile_user.id%>"></button>
+
 <%}%>
+<script src="/js/toggle_friendship.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const button = document.getElementById('toggleFriendButton');
+        const isFriend = <%= isFriend %>;
+
+        button.textContent = isFriend ? 'Remove Friend' : 'Add Friend';
+    });
+</script>

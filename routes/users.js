@@ -4,9 +4,7 @@ const passport = require('passport');
 
 const usersController = require("../controllers/users_controller");
 
-router.get('/profile', passport.checkAuthentication, (req, res) => {
-    usersController.profile(req, res);
-});
+router.get('/profile', passport.checkAuthentication, usersController.profile);
 router.get('/profile/:id',passport.checkAuthentication,usersController.profile);
 router.post('/update/:id',passport.checkAuthentication,usersController.update);
 
@@ -30,6 +28,7 @@ router.get("/auth/google/callback",passport.authenticate('google',{failureRedire
 
 router.get('/auth/facebook',passport.authenticate('facebook',{scope:['public_profile','email']}));
 router.get('/auth/facebook/callback',passport.authenticate('facebook', { failureRedirect: '/users/sign-in' }),usersController.createSession);
+
 
 
 module.exports = router;
