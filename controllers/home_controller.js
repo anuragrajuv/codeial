@@ -34,7 +34,7 @@ module.exports.home = async function(req,res){
             let friend = await User.findById(user.friendships[i]).select('name');
             friendsNames.push(friend);
             }
-            console.log(friendsNames);
+            // console.log(friendsNames);
 
             return res.render('home',{
                 title:"Codeial|Home",
