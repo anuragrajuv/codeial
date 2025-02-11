@@ -5,7 +5,7 @@ module.exports.toggleFriendship = async function (req, res) {
     
     const { friendId } = req.body;
     const userId = req.user._id;
-    console.log('Received friendId:', req.body.friendId);
+    // console.log('Received friendId:', req.body.friendId);
 
 
     if (!friendId) {
@@ -16,14 +16,16 @@ module.exports.toggleFriendship = async function (req, res) {
         const existingFriendship = await Friendship.findOne({userId,friendId});
 
         if(existingFriendship){
+            await User.findByIdAndUpdate(userId,{$pull:{friendships:existingFriendship.friendId}});
             await Friendship.deleteOne({_id:existingFriendship._id});
             return res.status(200).json({
                 message:"Friend Removed Successfully"
             })
         }else{
             const newFriendship = new Friendship({userId,friendId});
+            await User.findByIdAndUpdate(userId,{$push:{friendships:newFriendship.friendId}});
+            console.log(User.findById(userId).friendships);
             await newFriendship.save();
-
             return res.status(200).json({
                 message:"Friend added successfully",
                 Friendship:newFriendship

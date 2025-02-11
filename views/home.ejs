@@ -19,14 +19,23 @@
         </div>
     </section>
 
-    <section id="user-friends">
-        <h4>Friends</h4>
+    <section id="user-friends" style="position: sticky; top: 30px;">
+        <h4>Users</h4>
         <% for(u of all_users){%>
             <p>
                 <a href="/users/profile/<%= u.id%>"><%=u.name%></a>
             </p>    
         <%}%>
-        
+        <section>
+            <%if(locals.user){%>
+                <h4>Friends</h4>
+                <% for(let u of all_friends){%>
+                    <p>
+                        <a href="/users/profile/<%= u._id%>"><%=u.name%></a>
+                    </p>    
+                <%}%>
+            <%}%>
+        </section>
     </section>
 </div>
 

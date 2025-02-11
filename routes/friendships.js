@@ -5,4 +5,6 @@ const passport = require('passport');
 
 router.post('/toggle',passport.checkAuthentication,friendshipController.toggleFriendship);
 
+
+
 module.exports = router;

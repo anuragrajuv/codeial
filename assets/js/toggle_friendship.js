@@ -36,3 +36,4 @@ document.getElementById('toggleFriendButton').addEventListener('click', function
         button.disabled = false;
     });
 });
+
