@@ -2,8 +2,9 @@
   position: fixed;
   bottom: 80px;
   right: 10px;
-  width: 300px;
-  height: 350px;
+  min-width: 200px;
+  width: 20vw;
+  aspect-ratio: 3/4;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -11,24 +12,24 @@
   padding: 5px; }
   #user-chat-box #chat-messages-list {
     list-style: none;
-    padding: 10px;
+    padding: 5px;
     height: 70%;
     margin: 0;
     background-color: #fff;
     overflow: auto; }
     #user-chat-box #chat-messages-list .other-message {
       text-align: left;
-      padding: 5px; }
+      padding: 2px; }
       #user-chat-box #chat-messages-list .other-message span {
         display: inline-block;
-        padding: 15px;
+        padding: 5px;
         background-color: #ffa0a0; }
     #user-chat-box #chat-messages-list .self-message {
       text-align: right;
-      padding: 5px; }
+      padding: 2px; }
       #user-chat-box #chat-messages-list .self-message span {
         display: inline-block;
-        padding: 15px;
+        padding: 5px;
         background-color: #a0ffa0; }
   #user-chat-box #chat-message-input-container {
     height: 20%;
@@ -40,10 +41,10 @@
       height: 50%;
       width: 70%;
       align-self: flex-end; }
-    #user-chat-box #chat-message-input-container #send-message-button {
+    #user-chat-box #chat-message-input-container #send-message {
       height: 58%;
       width: 30%;
-      font-size: 25px;
+      font-size: 1.2em;
       color: white;
       border: none;
       background-color: #58d258;
