@@ -25,7 +25,6 @@ const paths = {
     }
 };
 
-// Compile SCSS, minify CSS, add hash
 function styles() {
     return gulp.src(paths.styles.src)
         .pipe(sass().on('error', sass.logError))
