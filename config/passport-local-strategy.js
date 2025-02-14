@@ -12,7 +12,7 @@ passport.use(new LocalStrategy({
         User.findOne({email: email})
             .then(user => {
                 if (!user) {
-                    req.flash('error',err);
+                    req.flash('error','Invalid Username/Password');
                     return done(null, false, { message: 'User not found' });
                 }
 

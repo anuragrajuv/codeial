@@ -1,4 +1,6 @@
 const express = require('express');
+const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -24,23 +26,38 @@ const chatSockets = require('./config/chat_sockets.js').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('Chat server is listening on port 5000');
 
+const path = require('path');
 app.use(cors());
 
-app.use(sassMiddleware({
-    src:'./assets/scss',
-    dest:'./assets/css',
-    debug:false,
-    outputStyle:'extended',
-    prefix:'/css'
-}));
+if(env.name == 'development'){
+    app.use(sassMiddleware({
+        // src:'./assets/scss',
+        // dest:'./assets/css',
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        debug:false,
+        outputStyle:'extended',
+        prefix:'/css'
+    }));
+}
 
 app.use(express.json()); // Enables JSON parsing
 app.use(express.urlencoded({ extended: true }));
+
+// use cookie parser
 app.use(cookieParser());
-app.use(express.static('./assets'));
+// make the uploads path available to the browser
+app.use(express.static(env.asset_path));
+
 // make uploads path available to the browser
 app.use("/uploads",express.static(__dirname + "/uploads"));
+
+// use logger
+app.use(logger(env.morgan.mode,env.morgan.options));
+
 app.use(expressLayouts);
+
+
 // extract styles and scripts from sub pages into the layout
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
@@ -52,7 +69,7 @@ app.set('views','./views');
 app.use(session({
     name:'codeial',
     // TODO change the secret before deployment in production
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie:{

@@ -2,8 +2,9 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const crypto = require('crypto');
 const User = require('../models/user');
-const FACEBOOK_APP_ID = "491595107379112";
-const FACEBOOK_APP_SECRET = "cfeaba11da497c713f526d71390bf1d4";
+const env = require('./environment');
+const FACEBOOK_APP_ID = env.FACEBOOK_APP_ID;
+const FACEBOOK_APP_SECRET = env.FACEBOOK_APP_SECRET;
 
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
