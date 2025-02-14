@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/home.css">
 
 <div id="home-container">
     <section id="feed-posts">
@@ -40,10 +39,12 @@
    <%- include('_chatbox') -%>
 </div>
 
-<script src="/js/home_posts.js"></script>
-<script src="/js/home_comments.js"></script>
+<script src="<%= assetPath('js/home_posts.js') %>"></script>
+<script src="<%= assetPath('js/home_comments.js') %>"></script>
+<script src="<%= assetPath('js/toggle_like.js') %>"></script>
+<script src="<%= assetPath('js/chat_engine.js') %>"></script>
 
-<script src="/js/toggle_like.js"></script>
+
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
@@ -51,7 +52,6 @@
     })
 </script>
 <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
-<script src="js/chat_engine.js"></script>
 <% if(locals.user){ %>
 <script>
     new ChatEngine('user-chat-box','<%=locals.user.email%>'); 
