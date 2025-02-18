@@ -9,9 +9,6 @@ import * as dartSass from 'sass';
 
 const sass = sassPkg(dartSass);
 
-
-
-
 gulp.task('css', function(done){
     console.log('minifying css...');
     gulp.src('./assets/scss/**/*.scss')
@@ -19,7 +16,7 @@ gulp.task('css', function(done){
     .pipe(cleanCSS())
     .pipe(gulp.dest('./assets/css'));
 
-     gulp.src('./assets/**/*.css')
+    gulp.src('./assets/**/*.css')
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
     .pipe(rev.manifest({
@@ -33,7 +30,7 @@ gulp.task('css', function(done){
 
 gulp.task('js', function(done){
     console.log('minifying js...');
-     gulp.src('./assets/**/*.js')
+    gulp.src('./assets/**/*.js')
     .pipe(terser())
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
