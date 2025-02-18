@@ -56,7 +56,7 @@ This project is a full-stack web application built using Node.js, Express, and E
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/anuragrajuv/project.git
+   git clone https://github.com/anuragrajuv/codeial.git
    ```
 2. Navigate to the project directory:
    ```sh
