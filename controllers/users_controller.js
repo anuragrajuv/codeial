@@ -61,13 +61,13 @@ module.exports.update = async function(req,res){
                     user.avatar = User.avatarPath + "/" + req.file.filename;
                 }           
                 user.save();
-                return res.redirect('back');     
+                return res.location(req.get("Referrer") || "/");     
             })
 
 
         } catch (error) {
             req.flash("error",error);
-            return res.redirect('back');
+            return res.location(req.get("Referrer") || "/");
         }
     }else{
             req.flash('error',"Unathorised!");

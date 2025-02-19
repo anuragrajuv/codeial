@@ -18,7 +18,7 @@
         <button method= "post" id="toggleFriendButton" data-friend-id="<%=profile_user.id%>"></button>
 
 <%}%>
-<script src="/js/toggle_friendship.js"></script>
+<script src="<%= assetPath('/js/toggle_friendship.js')%>"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const button = document.getElementById('toggleFriendButton');

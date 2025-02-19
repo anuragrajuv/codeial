@@ -34,6 +34,8 @@ const development = {
     GOOGLE_CLIENT_SECRET:process.env.dev_GOOGLE_CLIENT_SECRET,
     GOOGLE_CALLBACK_URL:process.env.dev_GOOGLE_CALLBACK_URL,
     jwt_secret:process.env.dev_jwt_secret,
+    chat_socket_connect:process.env.dev_socket_connect,
+    chat_socket_host:process.env.dev_socket_host,
     morgan:{
         mode:'dev',
         options:{stream:accessLogStream}
@@ -61,6 +63,8 @@ const production = {
     GOOGLE_CLIENT_ID:process.env.CODEIAL_GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET:process.env.CODEIAL_GOOGLE_CLIENT_SECRET,
     GOOGLE_CALLBACK_URL:process.env.CODEIAL_GOOGLE_CALLBACK_URL,
+    chat_socket_connect:process.env.CODEIAL_socket_connect,
+    chat_host:process.env.CODEIAL_socket_host,
     morgan:{
         mode:'dev',
         options:{stream:accessLogStream}
