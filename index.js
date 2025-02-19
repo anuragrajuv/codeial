@@ -43,7 +43,7 @@ if(env.name == 'development'){
 }
 
 app.use(express.json()); // Enables JSON parsing
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // use cookie parser
 app.use(cookieParser());

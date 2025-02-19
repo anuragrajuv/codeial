@@ -2,6 +2,8 @@ const fs = require('fs');
 const rfs = require('rotating-file-stream');
 const path = require('path');
 const morgan = require('morgan');
+require('dotenv').config();
+
 
 const logDirectory = path.join(__dirname,"../production_logs");
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -13,25 +15,25 @@ const accessLogStream = rfs.createStream('access.log',{
 
 const development = {
     name: 'development',
-    asset_path:'./assets',
-    session_cookie_key:"blahsomething",
-    db: 'codeial_development',
+    asset_path:process.env.dev_asset_path,
+    session_cookie_key:process.env.dev_session_cookie_key,
+    db:process.env.dev_db,
     smpt:{
         service:'gmail',
         host:'smpt.gmail.com',
         port:587,
         secure:false,
         auth:{
-            user:'devlopment.anurag@gmail.com',
-            pass:'mypc vlcc mvyy ssgo'
+            user:process.env.dev_gmail_user,
+            pass:process.env.dev_gmail_pass
         }
     },
-    FACEBOOK_APP_ID:"491595107379112",
-    FACEBOOK_APP_SECRET:"cfeaba11da497c713f526d71390bf1d4",
-    GOOGLE_CLIENT_ID:"659505693933-v86103cmtamc75fjj8dhbgcd8uk9elmg.apps.googleusercontent.com",
-    GOOGLE_CLIENT_SECRET:"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",
-    GOOGLE_CALLBACK_URL:"http://localhost:8000/users/auth/google/callback",
-    jwt_secret:"codeial",
+    FACEBOOK_APP_ID:process.env.dev_FACEBOOK_APP_ID,
+    FACEBOOK_APP_SECRET:process.env.dev_FACEBOOK_APP_SECRET,
+    GOOGLE_CLIENT_ID:process.env.dev_GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET:process.env.dev_GOOGLE_CLIENT_SECRET,
+    GOOGLE_CALLBACK_URL:process.env.dev_GOOGLE_CALLBACK_URL,
+    jwt_secret:process.env.dev_jwt_secret,
     morgan:{
         mode:'dev',
         options:{stream:accessLogStream}

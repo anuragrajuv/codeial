@@ -91,6 +91,6 @@ module.exports.destroy = async function(req,res){
         }
     } catch (err) {
         req.flash('error', err);
-        return res.redirect('back');
+        return res.location(req.get('Referrer') || '/');
     }
 }
