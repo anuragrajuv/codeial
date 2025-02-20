@@ -2,7 +2,7 @@ const fs = require('fs');
 const rfs = require('rotating-file-stream');
 const path = require('path');
 const morgan = require('morgan');
-// require('dotenv').config();
+require('dotenv').config();
 
 
 const logDirectory = path.join(__dirname,"../production_logs");
@@ -72,5 +72,5 @@ const production = {
     }
 
     // module.exports = production;
-
-module.exports = eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT);
+console.log(process.env.CODEIAL_ENVIRONMENT);
+module.exports = process.env.CODEIAL_ENVIRONMENT === "production" ? production : development;
