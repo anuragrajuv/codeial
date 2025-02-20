@@ -728,3 +728,5 @@
 [0mGET / [32m200[0m 95.041 ms - 9115[0m
 [0mGET /js/chat_engine-a750c0c88c.js [33m404[0m 6.373 ms - 167[0m
 [0mGET /favicon.ico [33m404[0m 6.213 ms - 150[0m
+[0mGET / [32m200[0m 72.680 ms - 9115[0m
+[0mGET /favicon.ico [33m404[0m 8.421 ms - 150[0m
