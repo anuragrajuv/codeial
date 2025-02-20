@@ -2,7 +2,7 @@ const fs = require('fs');
 const rfs = require('rotating-file-stream');
 const path = require('path');
 const morgan = require('morgan');
-require('dotenv').config();
+// require('dotenv').config();
 
 
 const logDirectory = path.join(__dirname,"../production_logs");
