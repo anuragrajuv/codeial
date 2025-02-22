@@ -1,11 +1,10 @@
-const env = require('.../config/environment');
-
+// const env = import('../../../config/environment');
 class ChatEngine{
     constructor(chatBoxId, userEmail){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
 
-        this.socket = io.connect(env.chat_socket_connect);
+        this.socket = io.connect('http://13.201.81.83:5000');
 
         if(this.userEmail){
             this.connectionHandler();

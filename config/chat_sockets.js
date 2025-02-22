@@ -1,9 +1,9 @@
-const env = require('./environment');
+// const env = require('./environment');
 
 module.exports.chatSockets = function(socketServer){
     let io = require('socket.io')(socketServer,{
         cors: {
-          origin: env.chat_socket_host,
+          origin: 'http://13.201.81.83:8000',
           methods: ["GET", "POST"]
         }
     });

@@ -6,17 +6,20 @@ import terser from 'gulp-terser';
 import imagemin from 'gulp-imagemin';
 import { deleteAsync } from 'del';
 import * as dartSass from 'sass';
+// import del from "del";
+
 
 const sass = sassPkg(dartSass);
+
 
 gulp.task('css', function(done){
     console.log('minifying css...');
     gulp.src('./assets/scss/**/*.scss')
     .pipe(sass())
     .pipe(cleanCSS())
-    .pipe(gulp.dest('./assets/css'));
+    .pipe(gulp.dest('./public/assets/'));
 
-    gulp.src('./assets/**/*.css')
+     gulp.src('./assets/**/*.css')
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
     .pipe(rev.manifest({
@@ -30,7 +33,7 @@ gulp.task('css', function(done){
 
 gulp.task('js', function(done){
     console.log('minifying js...');
-    gulp.src('./assets/**/*.js')
+     gulp.src('./assets/**/*.js')
     .pipe(terser())
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
@@ -57,13 +60,13 @@ gulp.task('images', function(done){
     done();
 });
 
+
 // empty the public/assets directory
-gulp.task('clean:assets', async function(done){
-    await deleteAsync('./public/assets');
-    done();
+gulp.task('clean:assets', function(){
+    return deleteAsync(["public/assets/**", "public/assets"], { force: true });
 });
 
-gulp.task('build', gulp.series('clean:assets', 'css', 'js', 'images'), function(done){
+gulp.task('build', gulp.series('clean:assets', gulp.series('css', 'js', 'images')), function(done){
     console.log('Building assets');
     done();
 });
