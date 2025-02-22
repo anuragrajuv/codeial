@@ -206,3 +206,5 @@
 [0mGET /favicon.ico [33m404[0m 7.123 ms - 150[0m
 [0mGET / [32m200[0m 34.435 ms - 9115[0m
 [0mGET /favicon.ico [33m404[0m 9.869 ms - 150[0m
+[0mGET / [32m200[0m 142.322 ms - 9115[0m
+[0mGET /favicon.ico [33m404[0m 10.796 ms - 150[0m
