@@ -7,6 +7,6 @@ module.exports = (app) => {
         if(env.name == "development"){
             return filePath
         }
-        return "/public/assets/" +JSON.parse(fs.readFileSync(path.join(__dirname,"../public/assets/rev-manifest.json")))[filePath]
+        return "public/assets/" +JSON.parse(fs.readFileSync(path.join(__dirname,"../public/assets/rev-manifest.json")))[filePath]
     }
 }
