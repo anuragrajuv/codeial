@@ -4,9 +4,9 @@
   "description": "social media web app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "set CODEIAL_ENVIRONMENT=development && nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prod_start": "set NODE_ENV=production && nodemon index.js"
+    "prod_start": "CODEIAL_ENVIRONMENT=production nodemon index.js"
   },
   "keywords": [
     "social"

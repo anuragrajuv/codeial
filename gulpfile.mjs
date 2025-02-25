@@ -14,14 +14,10 @@ const sass = sassPkg(dartSass);
 
 gulp.task('css', function(done){
     console.log('minifying css...');
-    gulp.src('./assets/scss/**/*.scss')
-    .pipe(sass())
+    gulp.src('./assets/**/*.css')
     .pipe(cleanCSS())
-    .pipe(gulp.dest('./public/assets/'));
-
-     gulp.src('./assets/**/*.css')
     .pipe(rev())
-    .pipe(gulp.dest('./public/assets'))
+    .pipe(gulp.dest('./public/assets/'))
     .pipe(rev.manifest({
         cwd: 'public',
         merge: true
