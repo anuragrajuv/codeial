@@ -4,7 +4,6 @@ const path = require('path');
 
 module.exports = (app) => {
     app.locals.assetPath = function(filePath){
-        console.log("Environment:", env.name);
         if(env.name == "development"){
             return filePath
         }
